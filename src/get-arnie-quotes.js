@@ -5,17 +5,16 @@ const getArnieQuotes = async (urls) => {
   return Promise.all(urls.map(url => getArnieQuote(url)));
 };
 
-const responseCodeToKeyLookup = {
-  200: "Arnie Quote",
-  500: "FAILURE"
-}
-
 const getArnieQuote = async (url) => {
   const response = await httpGet(url);
-  const keyToUse = responseCodeToKeyLookup[response.status];
-  if (!keyToUse) {
-    throw Error(`Response status [${response.status}] is not supported`);
+  let keyToUse;
+
+  if (response.status === 200) {
+    keyToUse = "Arnie Quote";
+  } else {
+    keyToUse = "FAILURE";
   }
+
   const responseBody = JSON.parse(response.body);
   return { [keyToUse]: responseBody.message };
 }
