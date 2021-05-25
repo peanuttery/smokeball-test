@@ -1,6 +1,7 @@
 const { httpGet } = require('./mock-http-interface');
 
 const getArnieQuotes = async (urls) => {
+  //validation of urls ignored as per tips
   return Promise.all(urls.map(url => getArnieQuote(url)));
 };
 
