@@ -11,12 +11,12 @@ const responseCodeToKeyLookup = {
 }
 
 const getArnieQuote = async (url) => {
-  let response = await httpGet(url);
-  let keyToUse = responseCodeToKeyLookup[response.status];
+  const response = await httpGet(url);
+  const keyToUse = responseCodeToKeyLookup[response.status];
   if (!keyToUse) {
     throw Error(`Response status [${response.status}] is not supported`);
   }
-  let responseBody = JSON.parse(response.body);
+  const responseBody = JSON.parse(response.body);
   return { [keyToUse]: responseBody.message };
 }
 
